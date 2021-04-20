@@ -1,4 +1,5 @@
 import 'package:doubanapp/pages/lanjiyin/home/home_page.dart';
+import 'package:doubanapp/pages/lanjiyin/shop/shop_page.dart';
 import 'package:flutter/material.dart';
 import 'package:doubanapp/pages/group/group_page.dart';
 import 'package:doubanapp/pages/movie/book_audio_video_page.dart';
@@ -6,6 +7,9 @@ import 'package:doubanapp/pages/person/person_center_page.dart';
 import 'package:doubanapp/pages/shop_page.dart';
 
 import 'home/home_page.dart';
+import 'lanjiyin/course/course_page.dart';
+import 'lanjiyin/forum/forum_page.dart';
+import 'lanjiyin/mine/mine_page.dart';
 
 ///这个页面是作为整个APP的最外层的容器，以Tab为基础控制每个item的显示与隐藏
 class ContainerPage extends StatefulWidget {
@@ -66,10 +70,10 @@ class _ContainerPageState extends State<ContainerPage> {
     if (pages == null) {
       pages = [
         TiKuHomePage(),
-        BookAudioVideoPage(),
-        GroupPage(),
-        shopPageWidget,
-        PersonCenterPage()
+        CourseHomePage(),
+        ForumHomePage(),
+        ShopHomePage(),
+        MineHomePage()
       ];
     }
     if (itemList == null) {

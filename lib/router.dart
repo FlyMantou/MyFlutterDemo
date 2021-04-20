@@ -1,3 +1,4 @@
+import 'package:doubanapp/pages/lanjiyin/home/answer_card_page.dart';
 import 'package:doubanapp/pages/question_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +21,8 @@ class Router {
   static const personDetailPage = 'app://PersonDetailPage';
   //答题页面
   static const questionDetailPage = 'app://questionDetailPage';
+  //答题卡页面
+  static const answerCardPage = 'app://answerCardPage';
 
 //  Widget _router(String url, dynamic params) {
 //    String pageId = _pageIdMap[url];
@@ -51,6 +54,8 @@ class Router {
           return PersonDetailPage(params['personImgUrl'], params['id']);
         case questionDetailPage:
           return QuestionDetailPage(params['chapter_title'],params['id']);
+        case answerCardPage:
+          return AnswerCardPage(params['chapter_title']);
       }
     }
     return null;

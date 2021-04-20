@@ -1,3 +1,6 @@
+import 'package:doubanapp/bean/home_item_bean.dart';
+import 'package:doubanapp/bean/online_question_bean.dart';
+import 'package:doubanapp/bean/shop_tab_item_bean.dart';
 import 'package:doubanapp/http/http_request.dart';
 
 //import 'package:doubanapp/bean/MovieBean.dart';
@@ -16,6 +19,19 @@ import 'package:doubanapp/bean/movie_long_comments_entity.dart';
 typedef RequestCallBack<T> = void Function(T value);
 
 class API {
+  //蓝基因
+  static const LJY_BASE_URL = "https://tk.lanjiyin.com.cn/";
+  static const LJY_MOCK_URL = "http://47.104.142.113:3001/mock/15/";
+
+
+  static const API_SHOP_LIST = "index.php/goods/goods/cateGoods";
+  static const API_HOME_LIST = "tiku/home_list";
+  static const API_ANSWER_CARD_LIST = "tiku/online/question/list";
+
+
+
+
+
   static const BASE_URL = 'https://api.douban.com';
 
   ///TOP250
@@ -39,11 +55,39 @@ class API {
   static const String QUESTION_LIST = '/v2/movie/question_list';
 
   var _request = HttpRequest(API.BASE_URL);
+  var _request_ljy = HttpRequest(API.LJY_MOCK_URL);
 
   Future<dynamic> _query(String uri, String value) async {
     final result = await _request
         .get('$uri$value?apikey=0b2bdeda43b5688921839c8ecb20399b');
     return result;
+  }
+
+  //蓝基因题库首页列表
+  void getAnswerCardList(RequestCallBack requestCallBack) async{
+    final Map result = await _request_ljy.get(API_ANSWER_CARD_LIST);
+    var resultList = result['data']['list'];
+    List<OnlineQuestionBean> list =
+    resultList.map<OnlineQuestionBean>((item) => OnlineQuestionBean.fromJson(item)).toList();
+    requestCallBack(list);
+  }
+
+  //蓝基因题库首页列表
+  void getHomeList(RequestCallBack requestCallBack) async{
+    final Map result = await _request_ljy.get(API_HOME_LIST);
+    var resultList = result['data'];
+    List<HomeItemBean> list =
+    resultList.map<HomeItemBean>((item) => HomeItemBean.fromJson(item)).toList();
+    requestCallBack(list);
+  }
+
+  //蓝基因商城首页列表
+  void getShopList(RequestCallBack requestCallBack) async{
+    final Map result = await _request_ljy.get(API_SHOP_LIST);
+    var resultList = result['data'];
+    List<ShopTabItemBean> list =
+    resultList.map<ShopTabItemBean>((item) => ShopTabItemBean.fromJson(item)).toList();
+    requestCallBack(list);
   }
 
   ///当日可播放电影已经更新
